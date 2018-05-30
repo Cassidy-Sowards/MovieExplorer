@@ -1,0 +1,958 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.radford.edu/Hollywood" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.radford.edu/Hollywood" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">provides Movie information to any platform</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.radford.edu/Hollywood">
+      <s:element name="getMovie">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="released" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getMovieResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getMovieResult" type="tns:Movie" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Movie">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="released" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="review" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rating" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="director" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="genres">
+            <s:complexType>
+              <s:sequence>
+                <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="actors">
+            <s:complexType>
+              <s:sequence>
+                <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="dbmessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getActor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getActorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getActorResult" type="tns:Actor" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Actor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="movies">
+            <s:complexType>
+              <s:sequence>
+                <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="dbmessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getDirector">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDirectorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getDirectorResult" type="tns:Director" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Director">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="movies">
+            <s:complexType>
+              <s:sequence>
+                <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="dbmessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="searchMovies">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="genre1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="genre2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="rating" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="review" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstyear" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastyear" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="keyword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="searchMoviesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchMoviesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPopularActors">
+        <s:complexType />
+      </s:element>
+      <s:element name="getPopularActorsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getPopularActorsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPopularDirectors">
+        <s:complexType />
+      </s:element>
+      <s:element name="getPopularDirectorsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getPopularDirectorsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPopularMovies">
+        <s:complexType />
+      </s:element>
+      <s:element name="getPopularMoviesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getPopularMoviesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRatings">
+        <s:complexType />
+      </s:element>
+      <s:element name="getRatingsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getRatingsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getReviews">
+        <s:complexType />
+      </s:element>
+      <s:element name="getReviewsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getReviewsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getGenres">
+        <s:complexType />
+      </s:element>
+      <s:element name="getGenresResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getGenresResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Movie" nillable="true" type="tns:Movie" />
+      <s:element name="Actor" nillable="true" type="tns:Actor" />
+      <s:element name="Director" nillable="true" type="tns:Director" />
+      <s:element name="DataTable" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+            <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getMovieSoapIn">
+    <wsdl:part name="parameters" element="tns:getMovie" />
+  </wsdl:message>
+  <wsdl:message name="getMovieSoapOut">
+    <wsdl:part name="parameters" element="tns:getMovieResponse" />
+  </wsdl:message>
+  <wsdl:message name="getActorSoapIn">
+    <wsdl:part name="parameters" element="tns:getActor" />
+  </wsdl:message>
+  <wsdl:message name="getActorSoapOut">
+    <wsdl:part name="parameters" element="tns:getActorResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDirectorSoapIn">
+    <wsdl:part name="parameters" element="tns:getDirector" />
+  </wsdl:message>
+  <wsdl:message name="getDirectorSoapOut">
+    <wsdl:part name="parameters" element="tns:getDirectorResponse" />
+  </wsdl:message>
+  <wsdl:message name="searchMoviesSoapIn">
+    <wsdl:part name="parameters" element="tns:searchMovies" />
+  </wsdl:message>
+  <wsdl:message name="searchMoviesSoapOut">
+    <wsdl:part name="parameters" element="tns:searchMoviesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPopularActorsSoapIn">
+    <wsdl:part name="parameters" element="tns:getPopularActors" />
+  </wsdl:message>
+  <wsdl:message name="getPopularActorsSoapOut">
+    <wsdl:part name="parameters" element="tns:getPopularActorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPopularDirectorsSoapIn">
+    <wsdl:part name="parameters" element="tns:getPopularDirectors" />
+  </wsdl:message>
+  <wsdl:message name="getPopularDirectorsSoapOut">
+    <wsdl:part name="parameters" element="tns:getPopularDirectorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPopularMoviesSoapIn">
+    <wsdl:part name="parameters" element="tns:getPopularMovies" />
+  </wsdl:message>
+  <wsdl:message name="getPopularMoviesSoapOut">
+    <wsdl:part name="parameters" element="tns:getPopularMoviesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRatingsSoapIn">
+    <wsdl:part name="parameters" element="tns:getRatings" />
+  </wsdl:message>
+  <wsdl:message name="getRatingsSoapOut">
+    <wsdl:part name="parameters" element="tns:getRatingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getReviewsSoapIn">
+    <wsdl:part name="parameters" element="tns:getReviews" />
+  </wsdl:message>
+  <wsdl:message name="getReviewsSoapOut">
+    <wsdl:part name="parameters" element="tns:getReviewsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getGenresSoapIn">
+    <wsdl:part name="parameters" element="tns:getGenres" />
+  </wsdl:message>
+  <wsdl:message name="getGenresSoapOut">
+    <wsdl:part name="parameters" element="tns:getGenresResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMovieHttpGetIn">
+    <wsdl:part name="title" type="s:string" />
+    <wsdl:part name="released" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getMovieHttpGetOut">
+    <wsdl:part name="Body" element="tns:Movie" />
+  </wsdl:message>
+  <wsdl:message name="getActorHttpGetIn">
+    <wsdl:part name="name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getActorHttpGetOut">
+    <wsdl:part name="Body" element="tns:Actor" />
+  </wsdl:message>
+  <wsdl:message name="getDirectorHttpGetIn">
+    <wsdl:part name="name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getDirectorHttpGetOut">
+    <wsdl:part name="Body" element="tns:Director" />
+  </wsdl:message>
+  <wsdl:message name="searchMoviesHttpGetIn">
+    <wsdl:part name="genre1" type="s:string" />
+    <wsdl:part name="genre2" type="s:string" />
+    <wsdl:part name="rating" type="s:string" />
+    <wsdl:part name="review" type="s:string" />
+    <wsdl:part name="firstyear" type="s:string" />
+    <wsdl:part name="lastyear" type="s:string" />
+    <wsdl:part name="keyword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="searchMoviesHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getPopularActorsHttpGetIn" />
+  <wsdl:message name="getPopularActorsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getPopularDirectorsHttpGetIn" />
+  <wsdl:message name="getPopularDirectorsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getPopularMoviesHttpGetIn" />
+  <wsdl:message name="getPopularMoviesHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getRatingsHttpGetIn" />
+  <wsdl:message name="getRatingsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getReviewsHttpGetIn" />
+  <wsdl:message name="getReviewsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getGenresHttpGetIn" />
+  <wsdl:message name="getGenresHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getMovieHttpPostIn">
+    <wsdl:part name="title" type="s:string" />
+    <wsdl:part name="released" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getMovieHttpPostOut">
+    <wsdl:part name="Body" element="tns:Movie" />
+  </wsdl:message>
+  <wsdl:message name="getActorHttpPostIn">
+    <wsdl:part name="name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getActorHttpPostOut">
+    <wsdl:part name="Body" element="tns:Actor" />
+  </wsdl:message>
+  <wsdl:message name="getDirectorHttpPostIn">
+    <wsdl:part name="name" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getDirectorHttpPostOut">
+    <wsdl:part name="Body" element="tns:Director" />
+  </wsdl:message>
+  <wsdl:message name="searchMoviesHttpPostIn">
+    <wsdl:part name="genre1" type="s:string" />
+    <wsdl:part name="genre2" type="s:string" />
+    <wsdl:part name="rating" type="s:string" />
+    <wsdl:part name="review" type="s:string" />
+    <wsdl:part name="firstyear" type="s:string" />
+    <wsdl:part name="lastyear" type="s:string" />
+    <wsdl:part name="keyword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="searchMoviesHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getPopularActorsHttpPostIn" />
+  <wsdl:message name="getPopularActorsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getPopularDirectorsHttpPostIn" />
+  <wsdl:message name="getPopularDirectorsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getPopularMoviesHttpPostIn" />
+  <wsdl:message name="getPopularMoviesHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getRatingsHttpPostIn" />
+  <wsdl:message name="getRatingsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getReviewsHttpPostIn" />
+  <wsdl:message name="getReviewsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="getGenresHttpPostIn" />
+  <wsdl:message name="getGenresHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:portType name="MovieInfoServiceSoap">
+    <wsdl:operation name="getMovie">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get a Movie object</wsdl:documentation>
+      <wsdl:input message="tns:getMovieSoapIn" />
+      <wsdl:output message="tns:getMovieSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getActor">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get an Actor object</wsdl:documentation>
+      <wsdl:input message="tns:getActorSoapIn" />
+      <wsdl:output message="tns:getActorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDirector">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get a Director object</wsdl:documentation>
+      <wsdl:input message="tns:getDirectorSoapIn" />
+      <wsdl:output message="tns:getDirectorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="searchMovies">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of Movies based on search criteria</wsdl:documentation>
+      <wsdl:input message="tns:searchMoviesSoapIn" />
+      <wsdl:output message="tns:searchMoviesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPopularActors">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of popular actors</wsdl:documentation>
+      <wsdl:input message="tns:getPopularActorsSoapIn" />
+      <wsdl:output message="tns:getPopularActorsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPopularDirectors">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of popular directors</wsdl:documentation>
+      <wsdl:input message="tns:getPopularDirectorsSoapIn" />
+      <wsdl:output message="tns:getPopularDirectorsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPopularMovies">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of popular movies</wsdl:documentation>
+      <wsdl:input message="tns:getPopularMoviesSoapIn" />
+      <wsdl:output message="tns:getPopularMoviesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRatings">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of ratings</wsdl:documentation>
+      <wsdl:input message="tns:getRatingsSoapIn" />
+      <wsdl:output message="tns:getRatingsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getReviews">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of reviews</wsdl:documentation>
+      <wsdl:input message="tns:getReviewsSoapIn" />
+      <wsdl:output message="tns:getReviewsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getGenres">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of genres</wsdl:documentation>
+      <wsdl:input message="tns:getGenresSoapIn" />
+      <wsdl:output message="tns:getGenresSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MovieInfoServiceHttpGet">
+    <wsdl:operation name="getMovie">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get a Movie object</wsdl:documentation>
+      <wsdl:input message="tns:getMovieHttpGetIn" />
+      <wsdl:output message="tns:getMovieHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getActor">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get an Actor object</wsdl:documentation>
+      <wsdl:input message="tns:getActorHttpGetIn" />
+      <wsdl:output message="tns:getActorHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDirector">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get a Director object</wsdl:documentation>
+      <wsdl:input message="tns:getDirectorHttpGetIn" />
+      <wsdl:output message="tns:getDirectorHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="searchMovies">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of Movies based on search criteria</wsdl:documentation>
+      <wsdl:input message="tns:searchMoviesHttpGetIn" />
+      <wsdl:output message="tns:searchMoviesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPopularActors">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of popular actors</wsdl:documentation>
+      <wsdl:input message="tns:getPopularActorsHttpGetIn" />
+      <wsdl:output message="tns:getPopularActorsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPopularDirectors">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of popular directors</wsdl:documentation>
+      <wsdl:input message="tns:getPopularDirectorsHttpGetIn" />
+      <wsdl:output message="tns:getPopularDirectorsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPopularMovies">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of popular movies</wsdl:documentation>
+      <wsdl:input message="tns:getPopularMoviesHttpGetIn" />
+      <wsdl:output message="tns:getPopularMoviesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRatings">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of ratings</wsdl:documentation>
+      <wsdl:input message="tns:getRatingsHttpGetIn" />
+      <wsdl:output message="tns:getRatingsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getReviews">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of reviews</wsdl:documentation>
+      <wsdl:input message="tns:getReviewsHttpGetIn" />
+      <wsdl:output message="tns:getReviewsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getGenres">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of genres</wsdl:documentation>
+      <wsdl:input message="tns:getGenresHttpGetIn" />
+      <wsdl:output message="tns:getGenresHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MovieInfoServiceHttpPost">
+    <wsdl:operation name="getMovie">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get a Movie object</wsdl:documentation>
+      <wsdl:input message="tns:getMovieHttpPostIn" />
+      <wsdl:output message="tns:getMovieHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getActor">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get an Actor object</wsdl:documentation>
+      <wsdl:input message="tns:getActorHttpPostIn" />
+      <wsdl:output message="tns:getActorHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDirector">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get a Director object</wsdl:documentation>
+      <wsdl:input message="tns:getDirectorHttpPostIn" />
+      <wsdl:output message="tns:getDirectorHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="searchMovies">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of Movies based on search criteria</wsdl:documentation>
+      <wsdl:input message="tns:searchMoviesHttpPostIn" />
+      <wsdl:output message="tns:searchMoviesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPopularActors">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of popular actors</wsdl:documentation>
+      <wsdl:input message="tns:getPopularActorsHttpPostIn" />
+      <wsdl:output message="tns:getPopularActorsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPopularDirectors">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of popular directors</wsdl:documentation>
+      <wsdl:input message="tns:getPopularDirectorsHttpPostIn" />
+      <wsdl:output message="tns:getPopularDirectorsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPopularMovies">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of popular movies</wsdl:documentation>
+      <wsdl:input message="tns:getPopularMoviesHttpPostIn" />
+      <wsdl:output message="tns:getPopularMoviesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRatings">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of ratings</wsdl:documentation>
+      <wsdl:input message="tns:getRatingsHttpPostIn" />
+      <wsdl:output message="tns:getRatingsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getReviews">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of reviews</wsdl:documentation>
+      <wsdl:input message="tns:getReviewsHttpPostIn" />
+      <wsdl:output message="tns:getReviewsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getGenres">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">return list of genres</wsdl:documentation>
+      <wsdl:input message="tns:getGenresHttpPostIn" />
+      <wsdl:output message="tns:getGenresHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MovieInfoServiceSoap" type="tns:MovieInfoServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getMovie">
+      <soap:operation soapAction="http://www.radford.edu/Hollywood/getMovie" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getActor">
+      <soap:operation soapAction="http://www.radford.edu/Hollywood/getActor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDirector">
+      <soap:operation soapAction="http://www.radford.edu/Hollywood/getDirector" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchMovies">
+      <soap:operation soapAction="http://www.radford.edu/Hollywood/searchMovies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularActors">
+      <soap:operation soapAction="http://www.radford.edu/Hollywood/getPopularActors" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularDirectors">
+      <soap:operation soapAction="http://www.radford.edu/Hollywood/getPopularDirectors" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularMovies">
+      <soap:operation soapAction="http://www.radford.edu/Hollywood/getPopularMovies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRatings">
+      <soap:operation soapAction="http://www.radford.edu/Hollywood/getRatings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getReviews">
+      <soap:operation soapAction="http://www.radford.edu/Hollywood/getReviews" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGenres">
+      <soap:operation soapAction="http://www.radford.edu/Hollywood/getGenres" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MovieInfoServiceSoap12" type="tns:MovieInfoServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getMovie">
+      <soap12:operation soapAction="http://www.radford.edu/Hollywood/getMovie" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getActor">
+      <soap12:operation soapAction="http://www.radford.edu/Hollywood/getActor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDirector">
+      <soap12:operation soapAction="http://www.radford.edu/Hollywood/getDirector" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchMovies">
+      <soap12:operation soapAction="http://www.radford.edu/Hollywood/searchMovies" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularActors">
+      <soap12:operation soapAction="http://www.radford.edu/Hollywood/getPopularActors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularDirectors">
+      <soap12:operation soapAction="http://www.radford.edu/Hollywood/getPopularDirectors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularMovies">
+      <soap12:operation soapAction="http://www.radford.edu/Hollywood/getPopularMovies" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRatings">
+      <soap12:operation soapAction="http://www.radford.edu/Hollywood/getRatings" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getReviews">
+      <soap12:operation soapAction="http://www.radford.edu/Hollywood/getReviews" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGenres">
+      <soap12:operation soapAction="http://www.radford.edu/Hollywood/getGenres" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MovieInfoServiceHttpGet" type="tns:MovieInfoServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="getMovie">
+      <http:operation location="/getMovie" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getActor">
+      <http:operation location="/getActor" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDirector">
+      <http:operation location="/getDirector" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchMovies">
+      <http:operation location="/searchMovies" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularActors">
+      <http:operation location="/getPopularActors" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularDirectors">
+      <http:operation location="/getPopularDirectors" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularMovies">
+      <http:operation location="/getPopularMovies" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRatings">
+      <http:operation location="/getRatings" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getReviews">
+      <http:operation location="/getReviews" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGenres">
+      <http:operation location="/getGenres" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MovieInfoServiceHttpPost" type="tns:MovieInfoServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="getMovie">
+      <http:operation location="/getMovie" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getActor">
+      <http:operation location="/getActor" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDirector">
+      <http:operation location="/getDirector" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="searchMovies">
+      <http:operation location="/searchMovies" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularActors">
+      <http:operation location="/getPopularActors" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularDirectors">
+      <http:operation location="/getPopularDirectors" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPopularMovies">
+      <http:operation location="/getPopularMovies" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRatings">
+      <http:operation location="/getRatings" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getReviews">
+      <http:operation location="/getReviews" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGenres">
+      <http:operation location="/getGenres" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MovieInfoService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">provides Movie information to any platform</wsdl:documentation>
+    <wsdl:port name="MovieInfoServiceSoap" binding="tns:MovieInfoServiceSoap">
+      <soap:address location="http://itec-web-dev04.radford.edu/EWS/MovieInfoService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MovieInfoServiceSoap12" binding="tns:MovieInfoServiceSoap12">
+      <soap12:address location="http://itec-web-dev04.radford.edu/EWS/MovieInfoService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MovieInfoServiceHttpGet" binding="tns:MovieInfoServiceHttpGet">
+      <http:address location="http://itec-web-dev04.radford.edu/EWS/MovieInfoService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MovieInfoServiceHttpPost" binding="tns:MovieInfoServiceHttpPost">
+      <http:address location="http://itec-web-dev04.radford.edu/EWS/MovieInfoService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
